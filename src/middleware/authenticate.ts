@@ -7,7 +7,7 @@ export const authenticateToken: RequestHandler<any, ApiResponse> = async (
     res,
     next,
 ) => {
-  const headers = req.headers;
+    const headers = req.headers;
 
     const Authorization = (headers.authorization || "").split("Bearer ");
     if (Authorization.length != 2) {
@@ -17,8 +17,10 @@ export const authenticateToken: RequestHandler<any, ApiResponse> = async (
     const token = Authorization[1];
     try {
         const decodedToken = jwt.verify(token, process.env.SECRET!);
-        req.userId = (decodedToken as jwt.JwtPayload).id!;
-        req.username = (decodedToken as jwt.JwtPayload).username!;
+        req.user = {
+            id: (decodedToken as jwt.JwtPayload).id!,
+            username: (decodedToken as jwt.JwtPayload).username!
+        }
         next();
     }
     catch(error){

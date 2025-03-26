@@ -1,6 +1,6 @@
-import Users from "../../models/user.js";
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
+import Users from "src/models/user";
 
 export const handleLogin = async (
     providedPassword: string,

@@ -1,3 +1,15 @@
+import Users from "src/models/user";
+
+declare global {
+  namespace Express {
+    interface Request {
+      user: {
+        id: string;
+        username: string;
+      }; // Replace 'any' with your user type
+    }
+  }
+}
 
 
 export type ApiResponse<T = any> =
