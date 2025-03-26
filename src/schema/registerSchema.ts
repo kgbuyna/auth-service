@@ -7,7 +7,7 @@ const isUsernameAvailable = async (username: string) => {
   };
 
 const RegisterSchema = v.pipeAsync(
-    v.objectAsync({
+    v.strictObjectAsync({
       username: v.pipeAsync(
         v.string(),
         v.minLength(2),

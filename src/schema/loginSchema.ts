@@ -8,7 +8,7 @@ const isUsernameNotAvailable = async (username: string) => {
 };
   
 
-export const LoginSchema = v.objectAsync({
+ const LoginSchema = v.strictObjectAsync({
     username: v.pipeAsync(
       v.string(),
       v.minLength(2),
@@ -21,5 +21,7 @@ export const LoginSchema = v.objectAsync({
       v.string(),
       v.minLength(8),
     ),
-  });
+  },);
+
+  export default LoginSchema;
   
