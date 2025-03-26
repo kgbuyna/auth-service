@@ -2,6 +2,8 @@ import { RequestHandler } from "express";
 import { ApiResponse } from "../types/base";
 import handleRegister from "../services/handleRegister";
 import { handleLogin } from "../services/handleLogin";
+import LoginSchema from "src/schema/loginSchema";
+import {InferOutput} from 'valibot';
 
 export const Register: RequestHandler<any, ApiResponse> = async (
     req,
@@ -23,16 +25,18 @@ export const Register: RequestHandler<any, ApiResponse> = async (
     catch(error) {
       next(error)
     }
-
   };
-  
-  export const Login: RequestHandler<any, ApiResponse> = async (
+
+  type LoginReqBody = InferOutput<typeof LoginSchema>
+
+  export const Login: RequestHandler<any, ApiResponse, LoginReqBody> = async (
     req,
     res,
     next,
   ) => {
-    const { password, username } = req.body;
     try {
+      const { password, username } = req.body
+      
       const token = await handleLogin(password, username)
       res.send({
         status:"success",
