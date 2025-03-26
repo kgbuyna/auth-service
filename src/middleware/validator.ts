@@ -1,28 +1,25 @@
 import { RequestHandler } from 'express';
 import * as v from 'valibot';
-import { UserCreationAttributes } from '../types/user.js';
-import { ApiResponse } from '../types/base.js';
+import { ApiRequest, ApiResponse } from '../types/base.js';
 
-type validatorType = (
-  schema: v.AnySchema,
-) => RequestHandler<any, ApiResponse, UserCreationAttributes>;
 
-export const validator: validatorType =
-  (schema) => async (req, res, next) => {
-    const body = req.body;
-    const data = schema.async
-      ? await v.safeParseAsync(schema, body)
-      : v.safeParse(schema, body);
+type ValidatorType = <TSchema extends v.BaseSchema<any, any, any> | v.BaseSchemaAsync<any, any, any>>(
+  schema: TSchema
+) => RequestHandler<ApiRequest, ApiResponse, any>;
 
-    if (data.success) {
-      req.validatedData = data.output;
+export const validator: ValidatorType = (schema) => async (req, res, next) => {
+  const body = req.body;
+  const data = 'async' in schema && schema.async 
+    ? await v.safeParseAsync(schema, body)
+    : v.safeParse(schema, body);
 
-      next();
-    } else {
-        res.send(
-            {
-            status:  "error",
-            messages: (data.issues as v.ValiError<v.AnySchema>[]).map(error => error.message),
-        })
-    }
-  };
+  if (data.success) {
+    req.body = data.output;
+    next();
+  } else {
+    res.send({
+      status: "error",
+      messages: (data.issues as v.ValiError<v.AnySchema>[]).map(error => error.message),
+    });
+  }
+};

@@ -21,3 +21,9 @@ export type ApiResponse<T = any> =
       details: string; // Detailed error description
     }; // Optional: Contains error information
   };
+
+
+export type ApiRequest<T = any> = {
+  body: T;
+  validatedData: T;
+};
