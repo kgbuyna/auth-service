@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import jwt from "jsonwebtoken";
+import jwt, { JsonWebTokenError } from "jsonwebtoken";
 import { ApiResponse } from "../types/base.js";
 
 export const authenticateToken: RequestHandler<any, ApiResponse> = async (
@@ -11,7 +11,9 @@ export const authenticateToken: RequestHandler<any, ApiResponse> = async (
 
     const Authorization = (headers.authorization || "").split("Bearer ");
     if (Authorization.length != 2) {
+        res.status(401)
         next(new Error("Header not provided"));
+        return
     }
 
     const token = Authorization[1];
@@ -25,10 +27,6 @@ export const authenticateToken: RequestHandler<any, ApiResponse> = async (
     }
     catch(error){
         res.status(401);
-        // res.send({
-        //     status: "error",
-        //     message: "Unauthorized",
-        // });
         next(error)
     }
 };

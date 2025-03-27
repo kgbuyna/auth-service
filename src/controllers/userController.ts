@@ -15,7 +15,7 @@ export const GetUsers: RequestHandler<any, ApiResponse> = async (
       const users = await handleGetUsers(userId)
       res.send({
         status:"success",
-        message:"Login succeed",
+        message:"Ok",
         data: {
           users
         }
