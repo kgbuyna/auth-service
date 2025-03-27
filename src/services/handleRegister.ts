@@ -8,12 +8,14 @@ const handleRegister = async (body:UserCreationAttributes)=>{
     try {   
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(body.password!, salt);
+
+        console.log(process.env);
         const user = new Users({...body, 'password': hashedPassword});
         user.save()
         const {id, username} = user.dataValues;
         const token = jwt.sign(
             { id, username },
-                process.env.SECRET || "hm",
+                process.env.SECRET!,
             {
                 expiresIn: "3h",
             },

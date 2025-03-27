@@ -6,11 +6,17 @@ import authRouter from "./routes/authRouter";
 import userRouter from "./routes/userRouter";
 
 import { authenticateToken } from "./middleware/authenticate";
+import dotenv from "dotenv"
+
+dotenv.config({
+    path: `${__dirname}/../.env`
+});
 
 const app = express();
 const server = http.createServer(app);
 const port = 4000
 
+app.use(express.json());
 app.use("/", authRouter)
 app.use(authenticateToken).use("/users", userRouter)
 

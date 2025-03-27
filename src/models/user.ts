@@ -2,7 +2,7 @@ import { DataTypes, Model } from "sequelize";
 
 import { UserAttributes, UserCreationAttributes } from "../types/user";
 
-import { sequelizer} from "../db/connect.js";
+import { sequelizer} from "../db/connect";
 
 
 export default class Users extends Model<

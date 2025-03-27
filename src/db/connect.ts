@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 
 
-const sequelizer = new Sequelize("main-pro","postgres", process.env.PG_PASSWORD, {
+const sequelizer = new Sequelize("chat-app","postgres", process.env.PG_PASSWORD, {
     dialect: "postgres",  
     host: "localhost"
 });

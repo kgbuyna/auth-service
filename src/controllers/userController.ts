@@ -11,7 +11,7 @@ export const GetUsers: RequestHandler<any, ApiResponse> = async (
   ) => {
     try {
 
-      const userId = req.userId;
+      const userId = req.user.id;
       const users = await handleGetUsers(userId)
       res.send({
         status:"success",

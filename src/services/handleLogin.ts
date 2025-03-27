@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
-import Users from "src/models/user";
+import Users from "../models/user";
 
 export const handleLogin = async (
     providedPassword: string,
@@ -20,10 +20,9 @@ export const handleLogin = async (
     if (!bcrypt.compareSync(providedPassword, userData.password!)) {
       throw new Error("Нууц үг бүруу");
     }
-  
     const token = jwt.sign(
       { id: userData.id, username: userData.username },
-        process.env.SECRET || "error",
+        process.env.SECRET!,
       {
         expiresIn: "3h", 
       },

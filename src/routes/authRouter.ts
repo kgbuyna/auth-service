@@ -1,9 +1,9 @@
 import { Router } from "express";
 
-import LoginSchema from "src/schema/loginSchema";
-import RegisterSchema from "src/schema/registerSchema";
+import LoginSchema from "../schema/loginSchema";
+import RegisterSchema from "../schema/registerSchema";
 
-import { Login, Register } from "src/controllers/authController";
+import { Login, Register } from "../controllers/authController";
 
 import { validator } from "../middleware/validator";
 
