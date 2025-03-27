@@ -7,6 +7,7 @@ type ValidatorType = <TSchema extends v.BaseSchema<any, any, any> | v.BaseSchema
   schema: TSchema
 ) => RequestHandler<ApiRequest, ApiResponse, any>;
 
+
 export const validator: ValidatorType = (schema) => async (req, res, next) => {
   const body = req.body;
   const data = 'async' in schema && schema.async 
