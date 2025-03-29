@@ -11,8 +11,7 @@ export const GetUsers: RequestHandler<any, ApiResponse> = async (
     next,
   ) => {
     try {
-
-      const userId = req.user.id;
+      const userId = req.headers["x-user-id"] as string;
       const users = await handleGetUsers(userId)
       res.send({
         status:"success",
@@ -32,6 +31,7 @@ export const GetUserById: RequestHandler<any, ApiResponse> = async (
     next,
   ) => {
     try {
+      console.log(req.params);
       const { id } = req.params;
       const user = await handleGetUserById(id)
       res.send({

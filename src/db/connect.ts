@@ -10,8 +10,6 @@ const assertDatabaseConnectionOk = async ()=> {
   console.log(`Checking database connection...`);
   try {
     await sequelizer.authenticate();
-    // console.log(process.env);
-    // setupAssociations();
     sequelizer.sync({ alter: true });
     console.log("Database connection OK!");
   } catch (error) {

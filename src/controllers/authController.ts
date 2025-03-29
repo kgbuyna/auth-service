@@ -35,8 +35,8 @@ export const Register: RequestHandler<any, ApiResponse> = async (
     next,
   ) => {
     try {
+      console.log("buynaa cute");
       const { password, username } = req.body
-
       const token = await handleLogin(password, username)
       res.send({
         status:"success",
