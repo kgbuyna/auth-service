@@ -1,7 +1,7 @@
 import { BaseError } from "sequelize";
 import Users from "../models/user";
 import jwt from 'jsonwebtoken';
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { UserCreationAttributes } from "../types/user";
 
 const handleRegister = async (body:UserCreationAttributes)=>{

@@ -1,13 +1,10 @@
-import { Http2SecureServer } from "http2";
-import Users from "src/models/user";
-
 declare global {
   namespace Express {
     interface Request {
       user: {
         id: string;
         username: string;
-      }; // Replace 'any' with your user type
+      };
       Headers: {
         "x-user-id": string;
         "x-user-role": string;
